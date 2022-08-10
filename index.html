@@ -16,7 +16,6 @@
             <div class="header">
                 <div class="logo">
                     <h1><img class="white" src="icons/library_book.svg" alt="">Library</h1>
-
                 </div>
                 <div class="nav"><button id="myBtn">Add Book</button></div>
             </div>
@@ -38,19 +37,18 @@
                                     </li>
                                 </ul>
                             </fieldset>
-                            <ul id="book-info">
+                            <ul id="book-info" class="book-info">
                                 <li><label for="title">Title</label><br />
                                     <input type="text" name="title" id="title">
                                 </li>
                                 <li><label for="author">Author</label><br />
                                     <input type="text" name="author" id="author">
                                 </li>
-                                <li><label for="pages">Pages</label><br />
+                                <li id="pages-li" class="pages-li"><label for="pages">Pages</label><br />
                                     <input type="text" id="pages" name="pages">
-                                <li>
+                                <li id="length-li" class="length-li">
                                     <label for="length">Length</label><br />
                                     <input type="text" id="length" name="length">
-                                </li>
                                 </li>
                                 <li>
                                     <lable for="read">Read?</label><br />
@@ -65,10 +63,10 @@
                         </form>
                         <button class="cancel">Cancel</button>
                     </div>
-                    <div class="library">
-                    </div>
-                </div>
 
+                </div>
+                <div class="library">
+                </div>
             </div>
             <div class="footer">
                 Created by Tualha as part of The Odin Project

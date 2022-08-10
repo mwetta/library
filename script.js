@@ -1,19 +1,45 @@
-
-// Defines modal with W3 defaults
+// Global variables
 let modal = document.getElementById("myModal");
-
 let btn = document.getElementById("myBtn");
-
 let span = document.getElementsByClassName("close")[0];
-
 let cancel = document.querySelector('.cancel');
+let library = document.querySelector('.library');
+// Define library intialization
+let myLibrary = [ 
+    { title: 'The Hobbit', author: 'J.R.R Tolkein', pages: '295', read: false, readDate: undefined, media: 'print'},
+    { title: 'Book of Night', author: 'Holly Black', pages: '435', read: true, readDate: 'April 16, 2022', media: 'print'},
+    { title: 'Wake the Bones', author: 'Elizabeth Kilcoyne', pages: '314', read: true, readDate: 'August 9, 2022', media: 'electronic'},
+    { title: 'Chouette', author: 'Claire Oshetsky', length: '6 hours and 42 minutes', read: true, readDate: 'January 16, 2022'},
+];
 
+
+writeLibrary(myLibrary);
+
+//Modal and form visibility controls
 cancel.onclick = function() {
     modal.style.display = "none";
 }
 
 btn.onclick = function() {
   modal.style.display = "block";
+  let types = document.querySelectorAll('input[name=media]');
+  types.forEach((type) => {
+    type.addEventListener('click', function() {
+        let bookInfo = document.getElementById('book-info');
+        let pagesLi = document.getElementById('pages-li');
+        let lengthLi = document.getElementById('length-li');
+        let media = document.querySelector('input[name=media]:checked');
+        if ( media.id === 'print' || media.id === 'electronic') {
+            bookInfo.style.display = "block";
+            pagesLi.style.display = "block";
+            lengthLi.style.display = "none";
+        } else {
+            bookInfo.style.display = "block";
+            lengthLi.style.display = "block";
+            pagesLi.style.display = "none";
+        }
+    });
+  })
 }
 
 span.onclick = function() {
@@ -27,24 +53,19 @@ window.onclick = function(event) {
 }
 
 //Begin defining library
-
-const library = document.querySelector('.library')
 const cards = document.querySelectorAll('.card');
 
 function writeLibrary(myLibrary) {
     for (let i = 0; i < myLibrary.length; i++) {
+        console.log(myLibrary.length);
         let card = document.createElement('div');
-        classList.add('card')
+        card.setAttribute('id', `column-${i}`);
+        card.classList.add('card');
         library.appendChild(card);
     }
 }
 
-let myLibrary = [ 
-    { title: 'The Hobbit', author: 'J.R.R Tolkein', pages: '295', read: false, readDate: undefined, media: 'print'},
-    { title: 'Book of Night', author: 'Holly Black', pages: '435', read: true, readDate: 'April 16, 2022', media: 'print'},
-    { title: 'Wake the Bones', author: 'Elizabeth Kilcoyne', pages: '314', read: true, readDate: 'August 9, 2022', media: 'electronic'},
-    { title: 'Chouette', author: 'Claire Oshetsky', length: '6 hours and 42 minutes', read: true, readDate: 'January 16, 2022'},
-];
+
 
 // Constructor
 function Book() {

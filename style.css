@@ -180,3 +180,17 @@ input[type=text] {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Display options */
+
+.book-info {
+    display: none;
+}
+
+.pages-li {
+    display: none;
+}
+
+.length-li {
+    display: none;
+}

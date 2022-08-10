@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>Tualha's Library</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="header">
+                <div class="logo">
+                    <h1><img class="white" src="icons/library_book.svg" alt="">Library</h1>
+
+                </div>
+                <div class="nav"><button id="myBtn">Add Book</button></div>
+            </div>
+            <div class="main">
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>Add a book to the library</h2>
+                        <form action="/" method="post">
+
+                            <fieldset>
+                                <legend>Select the format of book</legend>
+                                <ul>
+                                    <li><label for="print">Print</label><br><input type="radio" name="media" id="print">
+                                    </li>
+                                    <li><label for="electronic">Electronic</label><br><input type="radio" name="media"
+                                            id="electronic"></li>
+                                    <li><label for="audio">Audio</label><br><input type="radio" name="media" id="audio">
+                                    </li>
+                                </ul>
+                            </fieldset>
+                            <ul id="book-info">
+                                <li><label for="title">Title</label><br />
+                                    <input type="text" name="title" id="title">
+                                </li>
+                                <li><label for="author">Author</label><br />
+                                    <input type="text" name="author" id="author">
+                                </li>
+                                <li><label for="pages">Pages</label><br />
+                                    <input type="text" id="pages" name="pages">
+                                <li>
+                                    <label for="length">Length</label><br />
+                                    <input type="text" id="length" name="length">
+                                </li>
+                                </li>
+                                <li>
+                                    <lable for="read">Read?</label><br />
+                                        <input type="checkbox" id="read" name="read">
+                                </li>
+                                <li><label for="date">Date Read</label><br />
+                                    <input type="date" id="date" name="date">
+                                </li>
+                            </ul>
+                            <button type="submit">Add Book</button>
+
+                        </form>
+                        <button class="cancel">Cancel</button>
+                    </div>
+                    <div class="library">
+                    </div>
+                </div>
+
+            </div>
+            <div class="footer">
+                Created by Tualha as part of The Odin Project
+            </div>
+        </div>
+
+</body>
+
+</html>

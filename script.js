@@ -11,7 +11,7 @@ let myLibrary = [
     { title: 'The Hobbit', author: 'J.R.R Tolkein', pages: '295', read: false, readDate: undefined, media: 'print'},
     { title: 'Book of Night', author: 'Holly Black', pages: '435', read: true, readDate: 'April 16, 2022', media: 'print'},
     { title: 'Wake the Bones', author: 'Elizabeth Kilcoyne', pages: '314', read: true, readDate: 'August 9, 2022', media: 'electronic'},
-    { title: 'Chouette', author: 'Claire Oshetsky', length: '6 hours and 42 minutes', read: true, readDate: 'January 16, 2022'},
+    { title: 'Chouette', author: 'Claire Oshetsky', length: '6 hours and 42 minutes', read: true, readDate: 'January 16, 2022', media: 'audio'},
 ];
 
 document.querySelector('#addBook').addEventListener('click', function() {
@@ -78,14 +78,51 @@ function writeBookInfo(bookIndex) {
     let read = myLibrary[bookIndex].read
     let readDate = myLibrary[bookIndex].readDate
     let media = myLibrary[bookIndex].media
+
+    let cardTitle = document.createElement('h1');
+    cardTitle.textContent = `${title}`;
+    let cardAuthor = document.createElement('p');
+    cardAuthor.textContent = `by ${author}`;
+    let cardInfo = document.createElement('ul');
+    let cardRead = document.createElement('li');
+    cardRead.textContent = `${read}`;
+
+    let cardMedia = document.createElement('li');
+    cardMedia.textContent = `${media}`;
+    let cardRemoveButton = document.createElement('button');
+    cardRemoveButton.textContent = 'Remove book from library';
+    //add event listener that calls remove book
+
+    book.appendChild(cardTitle);
+    book.appendChild(cardAuthor);
+    book.appendChild(cardInfo);
+    cardInfo.appendChild(cardMedia);
+    book.appendChild(cardRemoveButton);
+
+    if (read === true) {
+        let cardReadDate = document.createElement('li');
+        cardReadDate.textContent = `Finished reading ${readDate}`;
+        cardInfo.appendChild(cardReadDate);
+
+    } else {
+        let cardMarkReadButton = document.createElement('Button');
+        cardMarkReadButton.textContent = 'Mark read';
+        book.appendChild(cardMarkReadButton);
+        book.classList.add('plum');
+        // add event listener that calls mark read
+    }
+
     if (media === 'print' || media === 'electronic') {
         let pages = myLibrary[bookIndex].pages
-        book.textContent = `${title}, ${author}, ${pages}, ${read}, ${readDate}, ${media}`;
+        let cardPages = document.createElement('li');
+        cardInfo.appendChild(cardPages);
+        cardPages.textContent = `${pages} pages`;
     } else {
         let length = myLibrary[bookIndex].length
-        book.textContent = `${title}, ${author}, ${length}, ${read}, ${readDate}, ${media}`;
+        let cardLength = document.createElement('li');
+        cardInfo.appendChild(cardLength);
+        cardLength.textContent = `${length} long`
     }
-    
 }
 
 // Constructor
@@ -130,11 +167,14 @@ function audioBook(title, author, length, read, readDate) {
 }
 
 Book.prototype.markRead = function () {
-
+    //remove mark read button
+    //remove class list
+    //update property in object
 }
 
 Book.prototype.removeBook = function () {
-
+    //remove from myLibrary
+    //write myLibrary
 }
 
 function addBookToLibrary() {
@@ -170,10 +210,6 @@ function writeNewBook(length) {
     writeBookInfo(i);
 }
 
-// If you haven’t already, set up your project with skeleton HTML/CSS and JS files.
-// All of your book objects are going to be stored in a simple array, so add a function to the script (not the constructor) that can take user’s input and store the new book objects into an array. Your code should look something like this:
-// Write a function that loops through the array and displays each book on the page. You can display them in some sort of table, or each on their own “card”. It might help for now to manually add a few books to your array so you can see the display.
-// Add a “NEW BOOK” button that brings up a form allowing users to input the details for the new book: author, title, number of pages, whether it’s been read and anything else you might want.
 // Add a button on each book’s display to remove the book from the library.
 // You will need to associate your DOM elements with the actual book objects in some way. One easy solution is giving them a data-attribute that corresponds to the index of the library array.
 // Add a button on each book’s display to change its read status.

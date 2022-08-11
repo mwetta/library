@@ -40,10 +40,13 @@ button {
     margin: 10px;
     background-color: var(--powder-blue);
     border: none;
-    width: 100px;
     color: white;
     font-weight: 500;
     box-shadow: 3px 3px 6px hsla(0, 0%, 60%, 0.3);
+}
+
+.standard-width {
+    width: 100px;
 }
 
 #addBook:hover,
@@ -55,6 +58,13 @@ button:hover {
     box-shadow: 3px 3px 6px #cacaca;
     background-color: white;
     padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.plum {
+    border-left: 10px solid var(--persian-plum);
 }
 
 /* form styling */

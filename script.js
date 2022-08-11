@@ -4,6 +4,7 @@ let btn = document.getElementById("myBtn");
 let span = document.getElementsByClassName("close")[0];
 let cancel = document.querySelector('.cancel');
 let library = document.querySelector('.library');
+
 // Define library intialization
 let myLibrary = [ 
     { title: 'The Hobbit', author: 'J.R.R Tolkein', pages: '295', read: false, readDate: undefined, media: 'print'},
@@ -11,7 +12,6 @@ let myLibrary = [
     { title: 'Wake the Bones', author: 'Elizabeth Kilcoyne', pages: '314', read: true, readDate: 'August 9, 2022', media: 'electronic'},
     { title: 'Chouette', author: 'Claire Oshetsky', length: '6 hours and 42 minutes', read: true, readDate: 'January 16, 2022'},
 ];
-
 
 writeLibrary(myLibrary);
 
@@ -59,13 +59,27 @@ function writeLibrary(myLibrary) {
     for (let i = 0; i < myLibrary.length; i++) {
         console.log(myLibrary.length);
         let card = document.createElement('div');
-        card.setAttribute('id', `column-${i}`);
+        card.setAttribute('data-index-number', `book-${i}`); // use this later to reference the element
         card.classList.add('card');
         library.appendChild(card);
+        writeBookInfo(i);
     }
 }
 
-
+function writeBookInfo(bookIndex) {
+    let book = document.querySelector(`.card[data-index-number=book-${bookIndex}]`);
+    let title = myLibrary[bookIndex].title
+    let author = myLibrary[bookIndex].author
+    let read = myLibrary[bookIndex].read
+    let readDate = myLibrary[bookIndex].readDate
+    let media = myLibrary[bookIndex].media
+    if (media === 'print' || media === 'electronic') {
+        let pages = myLibrary[bookIndex].pages
+    } else {
+        let length = myLibrary[bookIndex].length
+    }
+    book.textContent = `${title}, ${author}, ${read}, ${readDate}, ${media}`;
+}
 
 // Constructor
 function Book() {
@@ -78,7 +92,6 @@ function Book() {
 }
 
 function addBookToLibrary() {
-
     // create new book object
         // fields taken from form values
         // add to myLibrary

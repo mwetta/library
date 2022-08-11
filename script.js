@@ -79,7 +79,7 @@ function writeBookInfo(bookIndex) {
     let readDate = myLibrary[bookIndex].readDate
     let media = myLibrary[bookIndex].media
 
-    let cardTitle = document.createElement('h1');
+    let cardTitle = document.createElement('h2');
     cardTitle.textContent = `${title}`;
     let cardAuthor = document.createElement('p');
     cardAuthor.textContent = `by ${author}`;
@@ -91,7 +91,11 @@ function writeBookInfo(bookIndex) {
     cardMedia.textContent = `${media}`;
     let cardRemoveButton = document.createElement('button');
     cardRemoveButton.textContent = 'Remove book from library';
-    //add event listener that calls remove book
+    cardRemoveButton.addEventListener('click', () => {
+        //bookIndex not working here for removing from the array because it stays static
+        console.log(bookIndex);
+        removeBook(bookIndex);
+    });
 
     book.appendChild(cardTitle);
     book.appendChild(cardAuthor);
@@ -172,9 +176,12 @@ Book.prototype.markRead = function () {
     //update property in object
 }
 
-Book.prototype.removeBook = function () {
-    //remove from myLibrary
-    //write myLibrary
+removeBook = function (index) {
+    myLibrary.splice(index, 1);
+    let book = document.querySelector(`.card[data-index-number=book-${index}]`);
+    book.parentNode.removeChild(book);
+    console.log(book);
+    console.log(myLibrary);
 }
 
 function addBookToLibrary() {

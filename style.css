@@ -139,6 +139,12 @@ input[type=text] {
     z-index: 1;
 }
 
+.library {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+}
+
 
 /* Modal */
 .modal {

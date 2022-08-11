@@ -1,9 +1,10 @@
 // Global variables
-let modal = document.getElementById("myModal");
-let btn = document.getElementById("myBtn");
-let span = document.getElementsByClassName("close")[0];
-let cancel = document.querySelector('.cancel');
-let library = document.querySelector('.library');
+const modal = document.getElementById("myModal");
+const btn = document.getElementById("myBtn");
+const span = document.getElementsByClassName("close")[0];
+const cancel = document.querySelector('.cancel');
+const library = document.querySelector('.library');
+const addBookBtn = document.getElementById('addBook');
 
 // Define library intialization
 let myLibrary = [ 
@@ -12,6 +13,11 @@ let myLibrary = [
     { title: 'Wake the Bones', author: 'Elizabeth Kilcoyne', pages: '314', read: true, readDate: 'August 9, 2022', media: 'electronic'},
     { title: 'Chouette', author: 'Claire Oshetsky', length: '6 hours and 42 minutes', read: true, readDate: 'January 16, 2022'},
 ];
+
+document.querySelector('#addBook').addEventListener('click', function() {
+    modal.style.display= "none";
+    addBookToLibrary();
+});
 
 writeLibrary(myLibrary);
 
@@ -57,7 +63,6 @@ const cards = document.querySelectorAll('.card');
 
 function writeLibrary(myLibrary) {
     for (let i = 0; i < myLibrary.length; i++) {
-        console.log(myLibrary.length);
         let card = document.createElement('div');
         card.setAttribute('data-index-number', `book-${i}`); // use this later to reference the element
         card.classList.add('card');
@@ -75,10 +80,12 @@ function writeBookInfo(bookIndex) {
     let media = myLibrary[bookIndex].media
     if (media === 'print' || media === 'electronic') {
         let pages = myLibrary[bookIndex].pages
+        book.textContent = `${title}, ${author}, ${pages}, ${read}, ${readDate}, ${media}`;
     } else {
         let length = myLibrary[bookIndex].length
+        book.textContent = `${title}, ${author}, ${length}, ${read}, ${readDate}, ${media}`;
     }
-    book.textContent = `${title}, ${author}, ${read}, ${readDate}, ${media}`;
+    
 }
 
 // Constructor
@@ -91,10 +98,76 @@ function Book() {
     this.media = media
 }
 
+eBook.prototype = Object.create(Book.prototype)
+audioBook.prototype = Object.create(Book.prototype)
+physical.prototype = Object.create(Book.prototype)
+
+function physical(title, author, pages, read, readDate) {
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.read = read
+    this.readDate = readDate
+    this.media = 'print'
+}
+
+function eBook(title, author, pages, read, readDate) {
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.read = read
+    this.readDate = readDate
+    this.media = 'electronic'
+}
+
+function audioBook(title, author, length, read, readDate) {
+    this.title = title
+    this.author = author
+    this.length = length
+    this.read = read
+    this.readDate = readDate
+    this.media = 'audio'
+}
+
+Book.prototype.markRead = function () {
+
+}
+
+Book.prototype.removeBook = function () {
+
+}
+
 function addBookToLibrary() {
-    // create new book object
-        // fields taken from form values
-        // add to myLibrary
+    let title = document.getElementById('title').value;
+    let author = document.getElementById('author').value;
+    let read = document.getElementById('read').checked;
+    let readDate;
+        if (read === true) {
+            readDate = document.getElementById('readDate').value;
+        } 
+    let media = document.querySelector('input[name=media]:checked').id;
+    if (media === 'print' || media === 'electronic') {
+        let pages = document.getElementById('pages').value;
+        let book = new physical(title,author,pages,read,readDate);
+        myLibrary.push(book);
+        console.log(myLibrary.length)
+        writeNewBook(myLibrary.length)
+    } else {
+        let length = document.getElementById('length').value;
+        let book = new audioBook(title,author,length,read,readDate);
+        myLibrary.push(book);
+        writeNewBook(myLibrary.length)
+    }
+}
+
+function writeNewBook(length) {
+    let card = document.createElement('div');
+    let i = length - 1;
+    card.setAttribute('data-index-number', `book-${i}`); // use this later to reference the element
+    card.classList.add('card');
+    library.appendChild(card);
+    console.log(i);
+    writeBookInfo(i);
 }
 
 // If you haven’t already, set up your project with skeleton HTML/CSS and JS files.

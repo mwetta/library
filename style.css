@@ -32,6 +32,8 @@ h3 {
     filter: invert(100%) sepia(0%) saturate(7487%) hue-rotate(327deg) brightness(106%) contrast(101%);
 }
 
+
+#addBook,
 button {
     border-radius: 20px;
     padding: 10px;
@@ -44,6 +46,7 @@ button {
     box-shadow: 3px 3px 6px hsla(0, 0%, 60%, 0.3);
 }
 
+#addBook:hover,
 button:hover {
     cursor: pointer;
 }

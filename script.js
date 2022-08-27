@@ -92,7 +92,6 @@ function writeBookInfo(bookIndex) {
     let cardRemoveButton = document.createElement('button');
     cardRemoveButton.textContent = 'Remove book from library';
     cardRemoveButton.addEventListener('click', () => {
-        //bookIndex not working here for removing from the array because it stays static
         console.log(bookIndex);
         removeBook(bookIndex);
     });
@@ -190,7 +189,7 @@ function addBookToLibrary() {
     let read = document.getElementById('read').checked;
     let readDate;
         if (read === true) {
-            readDate = document.getElementById('readDate').value;
+            readDate = document.getElementById('date').value;
         } 
     let media = document.querySelector('input[name=media]:checked').id;
     if (media === 'print' || media === 'electronic') {
@@ -198,26 +197,36 @@ function addBookToLibrary() {
         let book = new physical(title,author,pages,read,readDate);
         myLibrary.push(book);
         console.log(myLibrary.length)
-        writeNewBook(myLibrary.length)
+        // writeNewBook(myLibrary.length)
+        removeAllBooks(library);
+        writeLibrary(myLibrary);
+        console.log(myLibrary);
     } else {
         let length = document.getElementById('length').value;
         let book = new audioBook(title,author,length,read,readDate);
         myLibrary.push(book);
-        writeNewBook(myLibrary.length)
+        // writeNewBook(myLibrary.length)
+        removeAllBooks(library);
+        writeLibrary(myLibrary);
+        console.log(myLibrary);
     }
 }
 
-function writeNewBook(length) {
-    let card = document.createElement('div');
-    let i = length - 1;
-    card.setAttribute('data-index-number', `book-${i}`); // use this later to reference the element
-    card.classList.add('card');
-    library.appendChild(card);
-    console.log(i);
-    writeBookInfo(i);
+// function writeNewBook(length) {
+//     let card = document.createElement('div');
+//     let i = length - 1;
+//     card.setAttribute('data-index-number', `book-${i}`); // use this later to reference the element
+//     card.classList.add('card');
+//     library.appendChild(card);
+//     console.log(i);
+//     writeBookInfo(i);
+// }
+
+function removeAllBooks(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 }
 
-// Add a button on each book’s display to remove the book from the library.
-// You will need to associate your DOM elements with the actual book objects in some way. One easy solution is giving them a data-attribute that corresponds to the index of the library array.
 // Add a button on each book’s display to change its read status.
 // To facilitate this you will want to create the function that toggles a book’s read status on your Book prototype instance.

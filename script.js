@@ -92,8 +92,10 @@ function writeBookInfo(bookIndex) {
     let cardRemoveButton = document.createElement('button');
     cardRemoveButton.textContent = 'Remove book from library';
     cardRemoveButton.addEventListener('click', () => {
-        console.log(bookIndex);
-        removeBook(bookIndex);
+        let index = book.getAttribute('data-index-number');
+        index = index.slice(-1);
+        console.log(index);
+        removeBook(index);
     });
 
     book.appendChild(cardTitle);
@@ -175,12 +177,17 @@ Book.prototype.markRead = function () {
     //update property in object
 }
 
+
 removeBook = function (index) {
     myLibrary.splice(index, 1);
     let book = document.querySelector(`.card[data-index-number=book-${index}]`);
+    console.log(book.parentNode);
     book.parentNode.removeChild(book);
-    console.log(book);
-    console.log(myLibrary);
+    for (let i = index; i < myLibrary.length; ++i) {
+        let next = document.querySelector(`.card[data-index-number=book-${i + 1}]`); 
+        console.log(next);
+        next.setAttribute('data-index-number', `book-${i}`); 
+    }
 }
 
 function addBookToLibrary() {
@@ -197,30 +204,26 @@ function addBookToLibrary() {
         let book = new physical(title,author,pages,read,readDate);
         myLibrary.push(book);
         console.log(myLibrary.length)
-        // writeNewBook(myLibrary.length)
-        removeAllBooks(library);
-        writeLibrary(myLibrary);
+        writeNewBook(myLibrary.length)
         console.log(myLibrary);
     } else {
         let length = document.getElementById('length').value;
         let book = new audioBook(title,author,length,read,readDate);
         myLibrary.push(book);
-        // writeNewBook(myLibrary.length)
-        removeAllBooks(library);
-        writeLibrary(myLibrary);
+        writeNewBook(myLibrary.length)
         console.log(myLibrary);
     }
 }
 
-// function writeNewBook(length) {
-//     let card = document.createElement('div');
-//     let i = length - 1;
-//     card.setAttribute('data-index-number', `book-${i}`); // use this later to reference the element
-//     card.classList.add('card');
-//     library.appendChild(card);
-//     console.log(i);
-//     writeBookInfo(i);
-// }
+function writeNewBook(length) {
+    let card = document.createElement('div');
+    let i = length - 1;
+    card.setAttribute('data-index-number', `book-${i}`); // use this later to reference the element
+    card.classList.add('card');
+    library.appendChild(card);
+    console.log(i);
+    writeBookInfo(i);
+}
 
 function removeAllBooks(parent) {
     while (parent.firstChild) {

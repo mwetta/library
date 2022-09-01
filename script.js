@@ -114,7 +114,12 @@ function writeBookInfo(bookIndex) {
         cardMarkReadButton.textContent = 'Mark read';
         book.appendChild(cardMarkReadButton);
         book.classList.add('plum');
-        // add event listener that calls mark read
+        cardMarkReadButton.addEventListener('click', () => {
+            let index = book.getAttribute('data-index-number');
+            index = index.slice(-1);
+            console.log(index);
+            removeBook(index);
+        });
     }
 
     if (media === 'print' || media === 'electronic') {
@@ -176,7 +181,6 @@ Book.prototype.markRead = function () {
     //remove class list
     //update property in object
 }
-
 
 removeBook = function (index) {
     myLibrary.splice(index, 1);

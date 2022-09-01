@@ -119,7 +119,7 @@ function writeBookInfo(bookIndex) {
             let index = book.getAttribute('data-index-number');
             index = index.substring(5);
             console.log(index);
-            removeBook(index);
+            markRead(index);
         });
     }
 
@@ -177,10 +177,13 @@ function audioBook(title, author, length, read, readDate) {
     this.media = 'audio'
 }
 
-Book.prototype.markRead = function () {
-    //remove mark read button
-    //remove class list
-    //update property in object
+markRead = function (index) {
+    let button = document.querySelector(`button[data-index-number=book-${index}]`);
+    button.parentNode.removeChild(button);
+    myLibrary[index].read = true;
+    console.log(myLibrary);
+    let card = document.querySelector(`.card[data-index-number=book-${index}]`);
+    card.classList.remove("plum");
 }
 
 removeBook = function (index) {
@@ -193,7 +196,7 @@ removeBook = function (index) {
         console.log(next);
         next.setAttribute('data-index-number', `book-${i}`); 
         let nextMarkReadButton = document.querySelector(`button[data-index-number=book-${parseInt(i) + 1}]`);
-        if (nextMarkReadButton != null){ 
+        if (nextMarkReadButton != null) { 
             nextMarkReadButton.setAttribute('data-index-number', `book-${i}`); 
             console.log(nextMarkReadButton);
         }

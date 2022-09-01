@@ -93,7 +93,7 @@ function writeBookInfo(bookIndex) {
     cardRemoveButton.textContent = 'Remove book from library';
     cardRemoveButton.addEventListener('click', () => {
         let index = book.getAttribute('data-index-number');
-        index = index.slice(-1);
+        index = index.substring(5);
         console.log(index);
         removeBook(index);
     });

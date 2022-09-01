@@ -112,11 +112,12 @@ function writeBookInfo(bookIndex) {
     } else {
         let cardMarkReadButton = document.createElement('Button');
         cardMarkReadButton.textContent = 'Mark read';
+        cardMarkReadButton.setAttribute('data-index-number', `book-${bookIndex}`);
         book.appendChild(cardMarkReadButton);
         book.classList.add('plum');
         cardMarkReadButton.addEventListener('click', () => {
             let index = book.getAttribute('data-index-number');
-            index = index.slice(-1);
+            index = index.substring(5);
             console.log(index);
             removeBook(index);
         });
@@ -191,6 +192,11 @@ removeBook = function (index) {
         let next = document.querySelector(`.card[data-index-number=book-${parseInt(i) + 1}]`); 
         console.log(next);
         next.setAttribute('data-index-number', `book-${i}`); 
+        let nextMarkReadButton = document.querySelector(`button[data-index-number=book-${parseInt(i) + 1}]`);
+        if (nextMarkReadButton != null){ 
+            nextMarkReadButton.setAttribute('data-index-number', `book-${i}`); 
+            console.log(nextMarkReadButton);
+        }
     }
     book.parentNode.removeChild(book);
 }

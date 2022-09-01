@@ -185,13 +185,14 @@ Book.prototype.markRead = function () {
 removeBook = function (index) {
     myLibrary.splice(index, 1);
     let book = document.querySelector(`.card[data-index-number=book-${index}]`);
+    console.log(book);
     console.log(book.parentNode);
-    book.parentNode.removeChild(book);
     for (let i = index; i < myLibrary.length; ++i) {
-        let next = document.querySelector(`.card[data-index-number=book-${i + 1}]`); 
+        let next = document.querySelector(`.card[data-index-number=book-${parseInt(i) + 1}]`); 
         console.log(next);
         next.setAttribute('data-index-number', `book-${i}`); 
     }
+    book.parentNode.removeChild(book);
 }
 
 function addBookToLibrary() {

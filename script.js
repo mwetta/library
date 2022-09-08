@@ -64,7 +64,7 @@ const cards = document.querySelectorAll('.card');
 function writeLibrary(myLibrary) {
     for (let i = 0; i < myLibrary.length; i++) {
         let card = document.createElement('div');
-        card.setAttribute('data-index-number', `book-${i}`); // use this later to reference the element
+        card.setAttribute('data-index-number', `book-${i}`); 
         card.classList.add('card');
         library.appendChild(card);
         writeBookInfo(i);
@@ -222,7 +222,7 @@ function addBookToLibrary() {
 function writeNewBook(length) {
     let card = document.createElement('div');
     let i = length - 1;
-    card.setAttribute('data-index-number', `book-${i}`); // use this later to reference the element
+    card.setAttribute('data-index-number', `book-${i}`);
     card.classList.add('card');
     library.appendChild(card);
     writeBookInfo(i);
@@ -234,5 +234,4 @@ function removeAllBooks(parent) {
     }
 }
 
-// Add a button on each book’s display to change its read status.
-// To facilitate this you will want to create the function that toggles a book’s read status on your Book prototype instance.
+

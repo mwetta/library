@@ -6,7 +6,7 @@ const cancel = document.querySelector('.cancel');
 const library = document.querySelector('.library');
 const addBookBtn = document.getElementById('addBook');
 
-// Define library intialization
+// Library initialization
 let myLibrary = [ 
     { title: 'The Hobbit', author: 'J.R.R Tolkein', pages: '295', read: false, readDate: undefined, media: 'print'},
     { title: 'Book of Night', author: 'Holly Black', pages: '435', read: true, readDate: 'April 16, 2022', media: 'print'},
@@ -58,7 +58,7 @@ window.onclick = function(event) {
   }
 }
 
-//Begin defining library
+//DOM manipulation
 const cards = document.querySelectorAll('.card');
 
 function writeLibrary(myLibrary) {
@@ -134,48 +134,41 @@ function writeBookInfo(bookIndex) {
     }
 }
 
-// Constructor
-function Book() {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-    this.readDate = readDate
-    this.media = media
+// Constructors
+class Book {
+    constructor(title, author, pages, read, readDate) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
+        this.readDate = readDate
+    }
 }
 
-eBook.prototype = Object.create(Book.prototype)
-audioBook.prototype = Object.create(Book.prototype)
-physical.prototype = Object.create(Book.prototype)
-
-function physical(title, author, pages, read, readDate) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-    this.readDate = readDate
-    this.media = 'print'
+class Print extends Book {
+    constructor(title, author, pages, read, readDate) {
+        super(title, author, pages, read, readDate)
+        this.media = "print"
+    }
 }
 
-function eBook(title, author, pages, read, readDate) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-    this.readDate = readDate
-    this.media = 'electronic'
+class Ebook extends Book {
+    constructor(title, author, pages, read, readDate) {
+        super(title, author, pages, read, readDate)
+        this.media = "electronic"
+    }
 }
 
-function audioBook(title, author, length, read, readDate) {
-    this.title = title
-    this.author = author
-    this.length = length
-    this.read = read
-    this.readDate = readDate
-    this.media = 'audio'
+class Audiobook extends Book {
+    constructor(title, author, read, readDate, length) {
+        super(title, author, read, readDate)
+        this.media = "audio"
+        this.length = length
+    }
 }
 
-markRead = function (index) {
+//Global functions
+function markRead (index) {
     let button = document.querySelector(`button[data-index-number=book-${index}]`);
     button.parentNode.removeChild(button);
     myLibrary[index].read = true;
@@ -183,7 +176,7 @@ markRead = function (index) {
     card.classList.remove("plum");
 }
 
-removeBook = function (index) {
+function removeBook (index) {
     myLibrary.splice(index, 1);
     let book = document.querySelector(`.card[data-index-number=book-${index}]`);
     for (let i = index; i < myLibrary.length; ++i) {
@@ -208,12 +201,13 @@ function addBookToLibrary() {
     let media = document.querySelector('input[name=media]:checked').id;
     if (media === 'print' || media === 'electronic') {
         let pages = document.getElementById('pages').value;
-        let book = new physical(title,author,pages,read,readDate);
+        let book = new Print(title,author,pages,read,readDate);
         myLibrary.push(book);
         writeNewBook(myLibrary.length)
     } else {
         let length = document.getElementById('length').value;
-        let book = new audioBook(title,author,length,read,readDate);
+        console.log(length);
+        let book = new Audiobook(title,author,read,readDate,length);
         myLibrary.push(book);
         writeNewBook(myLibrary.length)
     }
